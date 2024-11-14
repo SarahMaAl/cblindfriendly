@@ -1,64 +1,114 @@
-# color_palette/cblindfriendly.py
+"""
+cblindfriendly.py
+
+Author: Sarah MARTIN-ALONSO
+Date: 2024-11-14
+License: MIT
+
+This module provides utilities for working with color palettes and colormaps, 
+specifically designed to be accessible for color-blind users.
+"""
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Fonction pour récupérer un colormap
+
 def get_colormap(name, n_colors=256):
-    """Retourne un colormap avec n couleurs."""
+    """
+    Retrieve a colormap with a specified number of colors.
+
+    Parameters:
+        name (str): The name of the colormap to retrieve.
+        n_colors (int): Number of colors in the colormap.
+
+    Returns:
+        list: A list of RGBA tuples representing the colormap.
+
+    Raises:
+        ValueError: If the specified colormap name is not found.
+    """
     if name not in plt.colormaps():
-        raise ValueError(f"Colormap {name} non trouvé. Liste des colormaps disponibles : {list_colormaps()}")
+        raise ValueError(f"Colormap '{name}' not found. Available colormaps: {list_colormaps()}")
     
     cmap = plt.get_cmap(name, n_colors)
-    return [cmap(i) for i in range(cmap.N)]  # Retourne les couleurs sous forme de liste
+    return [cmap(i) for i in range(cmap.N)]
 
-# Liste des colormaps populaires de matplotlib
+
 def list_colormaps():
-    """Retourne la liste des colormaps disponibles dans matplotlib."""
+    """
+    List available colormaps in matplotlib.
+
+    Returns:
+        list: A list of available colormap names.
+    """
     return plt.colormaps()
 
-# Palettes avec moins de couleurs et plus contrastées
-def high_contrast_duo():
-    """Retourne une palette avec deux couleurs contrastées."""
-    return ['#0000FF', '#FF0000']  # Bleu et Rouge
 
-# Nouvelle palette à 5 couleurs
+def high_contrast_duo():
+    """
+    Return a high-contrast color duo (blue and red).
+
+    Returns:
+        list: A list containing two high-contrast color hex values.
+    """
+    return ['#0000FF', '#FF0000']  # Blue and Red
+
+
 def palette_5_MIB():
-    """Retourne une palette de 5 couleurs personnalisée."""
+    """
+    Return a custom palette of 5 colors.
+
+    Returns:
+        list: A list of 5 color hex values.
+    """
     return ['#648FFF', '#785EF0', '#DC267F', '#FE6100', '#FFB000']
 
-# Nouvelle palette à 8 couleurs (Version 1)
+
 def palette_8_Wong():
-    """Retourne une palette de 8 couleurs personnalisée."""
+    """
+    Return a custom palette of 8 colors (version 1).
+
+    Returns:
+        list: A list of 8 color hex values.
+    """
     return ['#000000', '#E69F00', '#56B4E9', '#009E73', '#F0E442', '#0072B2', '#D55E00', '#CC79A7']
 
-# Nouvelle palette à 8 couleurs (Version 2)
+
 def palette_8_Tol():
-    """Retourne une autre palette de 8 couleurs personnalisée."""
+    """
+    Return another custom palette of 8 colors (version 2).
+
+    Returns:
+        list: A list of 8 color hex values.
+    """
     return ['#332288', '#117733', '#44AA99', '#88CCEE', '#DDCC77', '#CC6677', '#AA4499', '#882255']
 
-# Liste des duos de couleurs accessibles (choisies pour leur contraste élevé)
+
 def accessible_duos():
-    """Retourne une liste de duos de couleurs contrastées accessibles pour les daltoniens."""
+    """
+    Return a list of accessible color duos with high contrast, suitable for color-blind users.
+
+    Returns:
+        list: A list of dictionaries containing duo names and color hex values.
+    """
     duos = [
-        ['#FFC20A', '#0C7BDC'],  # Jaune et Bleu
-        ['#994F00', '#006CD1'],  # Orange et Bleu
-        ['#E1BE6A', '#40B0A6'],  # Jaune pâle et Vert menthe
-        ['#E66100', '#5D3A9B'],  # Orange et Violet
-        ['#1AFF1A', '#4B0092'],  # Vert vif et Violet
-        ['#FEFE62', '#D35FB7'],  # Jaune et Rose
-        ['#005AB5', '#DC3220'],  # Bleu et Rouge
-        ['#1A85FF', '#D41159']   # Bleu clair et Rose vif
+        ['#FFC20A', '#0C7BDC'],  # Yellow and Blue
+        ['#994F00', '#006CD1'],  # Orange and Blue
+        ['#E1BE6A', '#40B0A6'],  # Pale Yellow and Mint Green
+        ['#E66100', '#5D3A9B'],  # Orange and Purple
+        ['#1AFF1A', '#4B0092'],  # Bright Green and Purple
+        ['#FEFE62', '#D35FB7'],  # Yellow and Pink
+        ['#005AB5', '#DC3220'],  # Blue and Red
+        ['#1A85FF', '#D41159']   # Light Blue and Bright Pink
     ]
     
-    # Créer les duos avec des noms comme 'duo 1', 'duo 2', etc.
-    accessible_duos = []
-    for i, duo in enumerate(duos, 1):  # Commencer l'indexation à 1
-        duo_name = f"duo {i}"  # Utiliser la numérotation simple
-        accessible_duos.append({
+    # Create the duos with names like 'duo 1', 'duo 2', etc.
+    accessible_duos_list = []
+    for i, duo in enumerate(duos, 1):
+        duo_name = f"duo {i}"
+        accessible_duos_list.append({
             'name': duo_name,
             'colors': duo
         })
     
-    return accessible_duos
-
+    return accessible_duos_list
